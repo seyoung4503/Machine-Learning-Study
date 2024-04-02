@@ -1,5 +1,9 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt
+
+
 
 fish_length = [25.4, 26.3, 26.5, 29.0, 29.0, 29.7, 29.7, 30.0, 30.0, 30.7, 31.0, 31.0, 
                 31.5, 32.0, 32.0, 32.0, 33.0, 33.0, 33.5, 33.5, 34.0, 34.0, 34.5, 35.0, 
@@ -13,13 +17,39 @@ fish_weight = [242.0, 290.0, 340.0, 363.0, 430.0, 450.0, 500.0, 390.0, 450.0, 50
 fish_data = np.column_stack((fish_length, fish_weight))
 fish_target = np.concatenate((np.ones(35), np.zeros(14)))
 
-# print(fish_data[:5])
-# print(fish_target)
-
 train_input, test_input, train_target, test_target = train_test_split(fish_data, fish_target, stratify=fish_target, random_state=42)
 
-# print(train_input.shape, test_input.shape)
-# print(train_target.shape, test_target.shape)
 
-print(train_target, test_target)
-# print(train_target.shape, test_target.shape)
+mean = np.mean(train_input, axis=0) # 평균
+std = np.std(train_input, axis=0) # 표준 편차
+
+# 표준 점수로 바꿈 (두 라벨 모두의 평균 또는 표준편차 반영)
+# 라벨 별 실제값과 관계없이 동일한 조건으로 비교하기 위함
+train_scaled = (train_input - mean) / std
+test_scaled = (test_input - mean) / std
+
+print(mean, std)
+
+
+kn = KNeighborsClassifier()
+kn.fit(train_scaled, train_target)
+print(kn.score(test_scaled, test_target))
+
+
+# print(kn.predict([[25, 150]]))
+
+
+
+# 새로운 데이터 예측도 표준 점수로 바꿀 것.
+new = ([25, 150] - mean) / std
+distance, indexes = kn.kneighbors([new])
+
+print(kn.predict([new]))
+plt.scatter(train_scaled[:,0], train_scaled[:,1])
+plt.scatter(new[0], new[1], marker="^")
+plt.scatter(train_scaled[indexes, 0], train_scaled[indexes, 1], marker="D")
+# plt.xlim((0, 1000))
+plt.xlabel('length')
+plt.ylabel('weight')
+
+plt.show()
