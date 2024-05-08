@@ -37,3 +37,10 @@ print(new_age)
 person.print_age()
 # result : 25
 
+person.set_age(-1)
+person.print_age()
+# result raise error
+
+
+
+
