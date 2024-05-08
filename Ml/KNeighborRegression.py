@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_absolute_error
 
 perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
        21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
@@ -19,6 +21,42 @@ perch_weight = np.array([5.9, 32.0, 40.0, 51.5, 70.0, 100.0, 78.0, 80.0, 85.0, 8
 
 train_input, test_input, train_target, test_target = train_test_split(perch_length, perch_weight, random_state=42)
 # todo : train test linear regression
+
+print(train_input.shape)
+print(test_input.shape)
+print(train_target.shape)
+print(test_target.shape)
+
+# 2-dimension array
+train_input = train_input.reshape(-1, 1)
+test_input = test_input.reshape(-1, 1)
+
+train_target.reshape(-1, 1)
+# test_target.reshape(-1, 1)
+
+knr = KNeighborsRegressor()
+
+knr.fit(train_input, train_target)
+
+'''
+Score function returns R^2 which called coefficient of determination
+
+R^2 = 1 - (sum((target - prediction)^2) / sum((target - mean)^2))
+
+As the model's prediction approaches the target, it becomes 1 and as the target approaches the average,
+it becomes close to 0
+'''
+print(knr.score(test_input, test_target))
+
+# Calculate prediction of test_input
+test_prediction = knr.predict(test_input)
+# Calculate mean absolute error
+mae = mean_absolute_error(test_target, test_prediction)
+print(mae)
+
+
+
+
 
 plt.scatter(perch_length, perch_weight)
 plt.xlabel('length')
