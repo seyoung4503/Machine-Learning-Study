@@ -1,131 +1,73 @@
 
-#         i, j = 0, 0
-        
-        
-#         nums = []
-#         if n * m > 0:
-#             for _ in range(n+m):
+nums = [1, 1, 1, 2, 2, 3]
+l=1
 
-#                 if i < m+n:
-#                     a = nums1[i]
-#                 if j < n:
+# for r in range(1,len(nums)):
+#     # print(nums[r], nums[r-1])
+#     print(r)
+#     if nums[r]!=nums[r-1]:
+#         print(l, nums[l])
+#         nums[l]=nums[r]
+#         l+=1
+
+# print(nums)
+# print(l)
+
+
+k = 1
+ctr = 0
+for i in range(1, len(nums)):
+    print("nums[", i, "], nums[", i-1, "] : ", nums[i], nums[i-1])
+    if nums[i] != nums[i-1]:
+        nums[k] = nums[i]
+        k += 1
+        ctr = 0
+    elif ctr < 1 and nums[i] == nums[i-1]:
+        nums[k] = nums[i]
+        k += 1
+        ctr += 1
+    print("ctr : ", ctr)
+    print(i)
+        
+print(k)
+print(nums)
+
+#  169. Majority Element
+
+sdq
                     
-#                     b = nums2[j]
-#                 elif j >= n:
-#                     b = 0
-#                 elif i >= n+m:
-#                     a = 0
-#                 # print(a, b)
-#                 if a <= b:
-#                     nums.append(a)
-#                     i += 1
-#                 elif a > b > 0:
-#                     nums.append(b)
-#                     j += 1
-#                     # print(j)
-#                     print(a)
+# avg = sum(nums)/len(nums)
+# print(avg)
+# min_val = 10**9+1
+# element = 0
+# for i in nums:
+#     a = abs(avg - i)
+#     if min_val > a:
+#         min_val = a
+#         element = i
 
-#                 if i >= m:
-#                     nums.append(b)
-#                     j += 1
-#                 if j >= n:
-#                     nums.append(a)
-#                     i += 1
+# return element
 
-#             # for x in range(n+m):
-#             #     # nums[x]
-#             #     nums1[x] = nums[x]
-#             print(nums)
-#         elif n > 0:
-#             for i in range(n):
-#                 nums1[i] = nums2[i]
+'''
+해시맵 아이디어 
+해시맵을 사용하면 for idx, value in enumerate(numbers) 은 O(n)
+if value not in index_dict 은 O(1)
+
+최종적으로 리스트에 비해 O(n^2)에서 O(n)으로 줄임
+'''
+
+        # indexed_dict = {value: idx for idx, value in enumerate(numbers)}
+        
+#         index_dict = {}
+        
+#         for idx, value in enumerate(numbers):
+#             if value not in index_dict:
+#                 index_dict[value] = []
+#             index_dict[value].append(idx)
+        
+#         print(index_dict)
+                
             
-        
-        
-        
-        
-        
-        
-# #         i, j = 0, 0
-# #         if m*n > 0:
-# #             a, b = nums1[0], nums2[0]
-# #             for _ in range(m + n):
-# #                 print(a, b)
-# #                 # print(i, j)
-
-# #                 if a == 0:
-# #                     # b = nums2[j]
-# #                     print(j)
-# #                     j+= 1
-# #                     nums1[_] = b
-# #                     continue
-# #                 if b == 0:
-# #                     # a = nums1[i]
-# #                     # print(j)
-# #                     i += 1
-# #                     nums1[_] = a
-# #                     continue
-                    
-                    
                 
-# #                 if a <= b:
-# #                     nums1[_] = a
-# #                     i += 1
-# #                     a = 0
-# #                     if i < m:
-# #                         a = nums1[i]
-
-# #                 else:
-# #                     nums1[_] = b
-# #                     j += 1
-# #                     b = 0
-# #                     if j < n:
-# #                         b = nums2[j]
                 
-
-# #         elif n > 0:
-
-# #             print("xxxx")
-# #             nums1[0] = nums2[0]
-
-# nums1 = [1, 2, 3, 0, 0, 0]
-# nums2 = [2, 5, 6]
-# n = 3
-# m = 3
-
-nums1 = [-1,0,0,3,3,3,0,0,0]
-m = 6
-nums2 = [1,2,2]
-n = 3
-i, j = 0, 0
-a, b = nums1[i], nums2[j]
-for _ in range(n+m):
-    # a, b = nums1[i], nums2[j]
-    print(a, b)
-    # print(i, j)
-    
-    
-    if a <= b:
-        nums1[_] = a
-        i += 1
-        # a = nums1[i]
-        # a = 10**9
-        if i > m:
-            a = 10**9
-        else:
-            a = nums1[i]
-
-    elif b < a:
-        nums1[_] = b
-        j += 1
-        # b = nums2[j]
-        # b = 10**9
-    
-    
-    
-        if j > n-1:
-            b = 10 **9
-        else:
-            print("j ", j)
-            b = nums2[j]
-print(nums1)
+                
